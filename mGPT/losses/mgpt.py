@@ -67,6 +67,7 @@ class GPTLosses(BaseLosses):
             total += self._update_loss("recons_feature", rs_set['m_rst'],
                                        rs_set['m_ref'])
             # total += self._update_loss("recons_joints", rs_set['joints_rst'], rs_set['joints_ref'])
+
             nfeats = rs_set['m_rst'].shape[-1]
             if nfeats in [263, 135 + 263]:
                 if nfeats == 135 + 263:
@@ -83,6 +84,7 @@ class GPTLosses(BaseLosses):
                 if self._params['recons_velocity'] != 0.0:
                     raise NotImplementedError(
                         "Velocity not implemented for nfeats = {})".format(nfeats))
+
             total += self._update_loss("vq_commit", rs_set['loss_commit'],
                                        rs_set['loss_commit'])
 

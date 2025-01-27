@@ -41,10 +41,12 @@ class MotionGPT(BaseModel):
             self.vae = instantiate_from_config(motion_vae)
 
         # Instantiate motion-language model
-        self.lm = instantiate_from_config(lm)
-
-        # Freeze the motion tokenizer for lm training
+        self.lm = None
+        # for lm training,
+        #   load the lm model
+        #   and freeze the motion tokenizer
         if 'lm' in self.hparams.stage:
+            self.lm =  instantiate_from_config(lm)
             self.vae.training = False
             for p in self.vae.parameters():
                 p.requires_grad = False

@@ -146,6 +146,6 @@ def draw_to_batch(smpl_joints_batch, title_batch=None, outname=None):
                 title_batch[i] if title_batch is not None else None
             ]))
         if outname is not None:
-            imageio.mimsave(outname[i], np.array(out[-1]), duration=50)
+            imageio.mimsave(outname[i], np.array(out[-1]), duration=50, loop=0)
     out = torch.stack(out, axis=0)
     return out

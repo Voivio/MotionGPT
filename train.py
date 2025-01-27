@@ -32,10 +32,6 @@ def main():
                 eval(f'cfg.LOGGER.{loggerName.upper()}'))
             pl_loggers.append(pl_logger)
 
-    # Callbacks
-    callbacks = build_callbacks(cfg, logger=logger, phase='train')
-    logger.info("Callbacks initialized")
-
     # Dataset
     datamodule = build_data(cfg)
     logger.info("datasets module {} initialized".format("".join(
@@ -44,6 +40,10 @@ def main():
     # Model
     model = build_model(cfg, datamodule)
     logger.info("model {} loaded".format(cfg.model.target))
+
+    # Callbacks
+    callbacks = build_callbacks(cfg, logger=logger, phase='train', datamodule=datamodule)
+    logger.info("Callbacks initialized")
 
     # Lightning Trainer
     trainer = pl.Trainer(
